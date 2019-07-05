@@ -1,0 +1,48 @@
+BROKER SCHEMA ErrorHandling_Library
+
+
+CREATE COMPUTE MODULE ExceptionHandling_ESQL_ExceptionHandler
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 --CALL CopyMessageHeaders();
+		 --CALL CopyEntireMessage();
+		 
+		 
+-- Declare a reference for the ExceptionList
+-- (in a Compute node use InputExceptionList)
+DECLARE ExceptionNumber INTEGER 0;
+DECLARE ExceptionMessage CHARACTER '';
+
+DECLARE start REFERENCE TO InputExceptionList.*[1];
+-- Loop through the exception list children
+WHILE start.Number IS NOT NULL DO 
+   -- more ESQL
+	SET ExceptionNumber=start.Number;
+	--SET OutputRoot.XMLNSC.Text=start.Text;
+   -- Move start to the last child of the field to which it currently points 
+   MOVE start LASTCHILD;
+END WHILE;
+		
+		
+		RETURN TRUE;
+		
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = InputRoot;
+	END;
+	
+	
+	
+	
+END MODULE;

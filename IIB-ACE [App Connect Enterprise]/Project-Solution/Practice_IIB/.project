@@ -3,6 +3,7 @@
 	<name>Practice_IIB</name>
 	<comment></comment>
 	<projects>
+		<project>ErrorHandling_Library</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
