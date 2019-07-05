@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<workingSetManager>
-<workingSet editPageId="com.ibm.etools.mft.navigator.BrokerWorkingSet.AppLib" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1562330545180_1" label="[Practice_IIB]" name="[Practice_IIB]">
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/Practice_IIB" type="4"/>
-</workingSet>
-<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1562330467690_0" label="Window Working Set" name="Aggregate for window 1562330467690"/>
-</workingSetManager>

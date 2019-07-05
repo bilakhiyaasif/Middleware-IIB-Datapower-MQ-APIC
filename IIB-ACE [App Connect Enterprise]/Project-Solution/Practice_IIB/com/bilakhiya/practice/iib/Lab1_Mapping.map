@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="com.bilakhiya.practice.iib" version="8.0.5.0" xmlns:map="com.bilakhiya.practice.iib">
+    <input path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/SOAPDomainMsg.xsd"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="out" uri="http://www.ibm.com/iib/msl/json"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="Lab1_Mapping">
+        <input path="mb:msg(SOAP_Domain_Msg,assembly,SOAP,Properties)" var="ComIbmMessageAssembly_SOAP_Domain_Msg"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var/mb:msg(JSON,assembly,JSON,Properties)" var="ComIbmMessageAssembly_JSON">
+            <cast castType="userDefined" path="$ComIbmMessageAssembly_JSON/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var"/>
+            <cast path="$ComIbmMessageAssembly_JSON/JSON/Data/type('anyType')" qualifier="anySimpleType"/>
+        </output>
+        <move>
+            <input path="$ComIbmMessageAssembly_SOAP_Domain_Msg/Properties"/>
+            <output path="$ComIbmMessageAssembly_JSON/Properties"/>
+        </move>
+        <local>
+            <input path="$ComIbmMessageAssembly_SOAP_Domain_Msg/SOAP_Domain_Msg"/>
+            <output path="$ComIbmMessageAssembly_JSON/JSON"/>
+            <local>
+                <input path="."/>
+                <output path="."/>
+                <move>
+                    <input path="Context"/>
+                    <output path="Data"/>
+                </move>
+                <move>
+                    <input path="Header"/>
+                    <output path="Data"/>
+                </move>
+                <move>
+                    <input path="Header"/>
+                    <output path="Data"/>
+                </move>
+                <move>
+                    <input path="Body"/>
+                    <output path="Data"/>
+                </move>
+                <expression>
+                    <input path="Attachment" var="Attachment"/>
+                    <output path="spath('Data',3)"/>
+                    <code lang="xpath">$Attachment</code>
+                </expression>
+            </local>
+        </local>
+    </mappingDeclaration>
+</mappingRoot>
